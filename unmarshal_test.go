@@ -5,10 +5,14 @@ import (
 )
 
 func TestUnmarshal(t *testing.T) {
-	db, err := ReadFile("files/sample.tcx")
+	dbs, err := ReadDir("files")
 	if err != nil {
 		t.Error(err)
 	}
+	if len(dbs) != 1 {
+		t.Error("Should have loaded 1 DB")
+	}
+	db := dbs[0]
 	npts := len(db.Acts.Act[0].Laps[0].Trk.Pt)
 	nlaps := len(db.Acts.Act[0].Laps)
 	nacts := len(db.Acts.Act)
